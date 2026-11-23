@@ -125,5 +125,4 @@ public class MyTunesController {
     void songsOnPlaylistDelete(ActionEvent event) {
 
     }
-
 }
