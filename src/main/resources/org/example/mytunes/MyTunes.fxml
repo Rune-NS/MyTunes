@@ -26,12 +26,12 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="filter" prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1">
+            <TextField fx:id="søgTextField" prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#filterSearch" text="Filer" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#search" text="Søg" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <HBox prefHeight="834.0" prefWidth="1535.0">
@@ -217,7 +217,7 @@
                         <Button mnemonicParsing="false" onAction="#songsNew" prefHeight="40.0" prefWidth="40.0" text="New" GridPane.halignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#songsEdit" prefHeight="40.0" prefWidth="40.0" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#songsDelete" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#songsClose" prefHeight="40.0" prefWidth="50.0" text="Close" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#closeMyTunes" prefHeight="40.0" prefWidth="50.0" text="Close" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
                      </children>
                   </GridPane>
                </children></VBox>

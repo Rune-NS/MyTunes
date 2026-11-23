@@ -16,9 +16,6 @@ public class MyTunesController {
     private TableColumn<?, ?> categorySongs;
 
     @FXML
-    private TextField filter;
-
-    @FXML
     private TableColumn<?, ?> namePlaylists;
 
     @FXML
@@ -40,6 +37,9 @@ public class MyTunesController {
     private TableView<?> songsTable;
 
     @FXML
+    private TextField søgTextField;
+
+    @FXML
     private TableColumn<?, ?> timePlaylists;
 
     @FXML
@@ -52,17 +52,17 @@ public class MyTunesController {
     private Slider volume;
 
     @FXML
+    void closeMyTunes(ActionEvent event) {
+
+    }
+
+    @FXML
     void deletePlaylist(ActionEvent event) {
 
     }
 
     @FXML
     void editPlaylist(ActionEvent event) {
-
-    }
-
-    @FXML
-    void filterSearch(ActionEvent event) {
 
     }
 
@@ -87,17 +87,17 @@ public class MyTunesController {
     }
 
     @FXML
+    void search(ActionEvent event) {
+
+    }
+
+    @FXML
     void songDown(ActionEvent event) {
 
     }
 
     @FXML
     void songUp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void songsClose(ActionEvent event) {
 
     }
 
