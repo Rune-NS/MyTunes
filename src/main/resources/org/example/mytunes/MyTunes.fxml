@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mytunes.HelloController">
+   <children>
+      <GridPane prefHeight="63.0" prefWidth="1535.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1111.1999877929688" minWidth="10.0" prefWidth="1111.1999877929688" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="828.8000732421874" minWidth="10.0" prefWidth="368.80001220703116" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.6000122070313" minWidth="10.0" prefWidth="54.400073242187545" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="filter" prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#filterSearch" text="Filer" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
+      <HBox prefHeight="834.0" prefWidth="1535.0">
+         <children>
+            <VBox prefHeight="822.0" prefWidth="511.66">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="87.0" text="Playlists">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="playlistsTable" prefHeight="670.0" prefWidth="512.0">
+                    <columns>
+                      <TableColumn fx:id="namePlaylists" prefWidth="170.66" text="Name" />
+                      <TableColumn fx:id="songsPlaylists" prefWidth="170.66" text="Songe" />
+                        <TableColumn fx:id="timePlaylists" prefWidth="170.66" text="Time" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <GridPane prefHeight="118.0" prefWidth="512.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#newPlaylist" prefHeight="40.0" prefWidth="40.0" text="New" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#editPlaylist" prefHeight="40.0" prefWidth="40.0" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#deletePlaylist" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                     </children>
+                  </GridPane>
+               </children></VBox>
+            <VBox prefHeight="822.0" prefWidth="511.66">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="168.0" text="Songs on Playlist">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="songsOnPlsylistTable" prefHeight="496.0" prefWidth="491.0">
+                    <columns>
+                      <TableColumn fx:id="numberSongsOnPlaylists" prefWidth="75.0" text="Number" />
+                      <TableColumn fx:id="nameSongsOnPlaylists" prefWidth="425.0" text="Name" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <GridPane prefHeight="66.0" prefWidth="512.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#songUp" prefHeight="40.0" prefWidth="40.0" text="Up" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songDown" prefHeight="40.0" prefWidth="50.0" text="Down" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songsOnPlayListAdd" prefHeight="40.0" prefWidth="40.0" text="Add" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songsOnPlaylistDelete" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                     </children>
+                  </GridPane>
+                  <VBox prefHeight="230.0" prefWidth="512.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="95.0" text="Nothing" textAlignment="CENTER">
+                           <VBox.margin>
+                              <Insets left="215.0" top="20.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="95.0" text="Is playing" textAlignment="JUSTIFY">
+                           <VBox.margin>
+                              <Insets left="215.0" />
+                           </VBox.margin>
+                        </Label>
+                        <GridPane prefHeight="149.0" prefWidth="512.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.79998779296875" minWidth="10.0" prefWidth="207.79998779296875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.20001220703125" minWidth="10.0" prefWidth="102.39999999999998" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="201.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="110.8000244140625" minHeight="4.000036621093749" prefHeight="4.000036621093749" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="198.20002822875978" minHeight="10.0" prefHeight="138.79996337890626" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#previousSong" prefHeight="35.0" prefWidth="35.0" text="⏮" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#playPause" prefHeight="41.0" prefWidth="36.0" text="▶" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="21.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#nextSong" prefHeight="35.0" prefWidth="35.0" text="⏭" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </GridPane>
+                        <GridPane prefHeight="146.0" prefWidth="512.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.4000244140625" minWidth="10.0" prefWidth="170.3999755859375" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="185.20002441406254" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="320.0" minWidth="10.0" prefWidth="157.99997558593748" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="39.79990234375" minHeight="10.0" prefHeight="12.599950218200682" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="86.20004978179932" minHeight="10.0" prefHeight="59.200048828125006" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="86.39999618530273" minHeight="10.0" prefHeight="65.59995117187499" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Slider fx:id="volume" prefHeight="14.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Slider>
+                              <Label text="🔊" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets right="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="822.0" prefWidth="511.66">
+               <children>
+                  <Label prefHeight="32.0" prefWidth="72.0" text="Songs">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="songsTable" prefHeight="670.0" prefWidth="491.0">
+                    <columns>
+                      <TableColumn fx:id="titleSongs" prefWidth="122.8" text="Title" />
+                      <TableColumn fx:id="artistSongs" prefWidth="122.8" text="Artist" />
+                        <TableColumn fx:id="categorySongs" prefWidth="122.8" text="Category" />
+                        <TableColumn fx:id="timeSongs" prefWidth="122.8" text="Time" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <GridPane prefHeight="115.0" prefWidth="512.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.7999267578125" minWidth="10.0" prefWidth="106.13330078125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.4666748046875" minWidth="10.0" prefWidth="149.86669921875" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#songsNew" prefHeight="40.0" prefWidth="40.0" text="New" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songsEdit" prefHeight="40.0" prefWidth="40.0" text="Edit" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songsDelete" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songsClose" prefHeight="40.0" prefWidth="50.0" text="Close" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                     </children>
+                  </GridPane>
+               </children></VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
