@@ -32,7 +32,7 @@ public class Song {
         this.duration = duration;
     }
 
-    public int getDuration() { //skal man i virkeligheden lave sådan nogen her protected??
+    public int getDuration() {
         return duration;
     }
 }

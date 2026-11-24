@@ -30,7 +30,7 @@ public class Playlist {
         return songs;
     }
 
-    public int getTotalDuration(Song s) {//skal man i virkeligheden lave sådan nogen her protected??
+    public int getTotalDuration(Song s) {
         return totalduration;
     }
 

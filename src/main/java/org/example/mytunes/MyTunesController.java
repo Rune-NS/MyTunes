@@ -12,46 +12,46 @@ import javafx.scene.control.TextField;
 public class MyTunesController {
 
     @FXML
-    private TableColumn<?, ?> artistSongs;
+    private TableColumn<Song, String> artistSongs;
 
     @FXML
-    private TableColumn<?, ?> categorySongs;
+    private TableColumn<Song, String> categorySongs;
 
     @FXML
-    private TableColumn<?, ?> namePlaylists;
+    private TableColumn<Playlist, String> namePlaylists;
 
     @FXML
-    private TableColumn<?, ?> nameSongsOnPlaylists;
+    private TableColumn<Playlist, Song> nameSongsOnPlaylists;
 
     @FXML
-    private TableColumn<?, ?> numberSongsOnPlaylists;
+    private TableColumn<Playlist, Integer> numberSongsOnPlaylists;
 
     @FXML
     private Button playPauseButten;
 
     @FXML
-    private TableView<?> playlistsTable;
+    private TableView<Playlist> playlistsTable;
 
     @FXML
-    private TableView<?> songsOnPlsylistTable;
+    private TableView<Playlist> songsOnPlsylistTable;
 
     @FXML
-    private TableColumn<?, ?> songsPlaylists;
+    private TableColumn<Playlist, Song> songsPlaylists;
 
     @FXML
-    private TableView<?> songsTable;
+    private TableView<Song> songsTable;
 
     @FXML
     private TextField søgTextField;
 
     @FXML
-    private TableColumn<?, ?> timePlaylists;
+    private TableColumn<Playlist, ?> timePlaylists;
 
     @FXML
-    private TableColumn<?, ?> timeSongs;
+    private TableColumn<Song, ?> timeSongs;
 
     @FXML
-    private TableColumn<?, ?> titleSongs;
+    private TableColumn<Song, String> titleSongs;
 
     @FXML
     private Slider volume;
