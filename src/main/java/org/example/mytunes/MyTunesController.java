@@ -45,10 +45,10 @@ public class MyTunesController {
     private TextField søgTextField;
 
     @FXML
-    private TableColumn<Playlist, ?> timePlaylists;
+    private TableColumn<Playlist, String> timePlaylists;
 
     @FXML
-    private TableColumn<Song, ?> timeSongs;
+    private TableColumn<Song, String> timeSongs;
 
     @FXML
     private TableColumn<Song, String> titleSongs;
