@@ -4,7 +4,9 @@ public class Song {
 
     private String title;
     private String artist;
+    private String category;
     private int duration;
+
 
     public Song(String title, String artist, int duration) {
         this.title = title;

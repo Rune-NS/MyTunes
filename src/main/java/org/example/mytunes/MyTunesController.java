@@ -1,6 +1,9 @@
 package org.example.mytunes;
 
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -53,8 +56,20 @@ public class MyTunesController {
     @FXML
     private TableColumn<Song, String> titleSongs;
 
+    private ObservableList<Song> songs = FXCollections.observableArrayList();
+
     @FXML
     private Slider volume;
+
+    public void initialize() {
+
+        Song j = new Song("j", "a", 90);
+
+        this.songs.add(j);
+
+        this.songsTable.setItems(this.songs);
+
+    }
 
     @FXML
     void closeMyTunes(ActionEvent event) {
