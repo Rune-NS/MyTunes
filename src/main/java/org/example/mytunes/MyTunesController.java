@@ -101,19 +101,20 @@ public class MyTunesController {
     void playPause(ActionEvent event) {
         if (playPauseButten.getText().equals("▶")) {
             playPauseButten.setText("⏸");
+
+            try {
+                Media sound = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
+                mediaPlayer = new MediaPlayer(sound);
+                mediaPlayer.seek(mediaPlayer.getStartTime());
+                mediaPlayer.play();
+
+                welcomeText.setText("Now Playing :" + mediaPlayer.getMedia().getSource().toString());
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
         } else if (playPauseButten.getText().equals("⏸")) {
             playPauseButten.setText("▶");
-        }
-
-        try {
-            Media sound = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
-            mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.seek(mediaPlayer.getStartTime());
-            mediaPlayer.play();
-
-            welcomeText.setText("Afspiller nu :" + mediaPlayer.getMedia().getSource().toString());
-        } catch (Exception e) {
-            System.out.println("Fejl: " + e.getMessage());
         }
     }
 
