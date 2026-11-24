@@ -83,16 +83,11 @@ public class MyTunesController {
 
     @FXML
     void playPause(ActionEvent event) {
-
-
-        playPauseButten.setText("❚❚");
-
-        playPauseButten.setText("▶");
-
-        /*
-        På en eller anden måde skal vi kunne tjekke om noget spiller
-        eller ikke gør så vi kan sætte den rigtige ikon på.
-         */
+        if (playPauseButten.getText().equals("▶")) {
+            playPauseButten.setText("⏸");
+        } else if (playPauseButten.getText().equals("⏸")) {
+            playPauseButten.setText("▶");
+        }
     }
 
     @FXML
