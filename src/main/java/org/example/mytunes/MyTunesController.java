@@ -6,11 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class MyTunesController {
 
@@ -96,12 +94,26 @@ public class MyTunesController {
 
     }
 
+    private Label welcomeText;
+    private static MediaPlayer mediaPlayer;
+
     @FXML
     void playPause(ActionEvent event) {
         if (playPauseButten.getText().equals("▶")) {
             playPauseButten.setText("⏸");
         } else if (playPauseButten.getText().equals("⏸")) {
             playPauseButten.setText("▶");
+        }
+
+        try {
+            Media lyd = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
+            mediaPlayer = new MediaPlayer(lyd);
+            mediaPlayer.seek(mediaPlayer.getStartTime());
+            mediaPlayer.play();
+
+            welcomeText.setText("Afspiller nu :" + mediaPlayer.getMedia().getSource().toString());
+        } catch (Exception e) {
+            System.out.println("Fejl: " + e.getMessage());
         }
     }
 
