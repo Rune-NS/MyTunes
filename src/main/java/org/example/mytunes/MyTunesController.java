@@ -115,6 +115,7 @@ public class MyTunesController {
 
         } else if (playPauseButten.getText().equals("⏸")) {
             playPauseButten.setText("▶");
+
         }
     }
 
