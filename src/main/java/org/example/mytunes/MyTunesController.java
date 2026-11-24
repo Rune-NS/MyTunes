@@ -106,8 +106,8 @@ public class MyTunesController {
         }
 
         try {
-            Media lyd = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
-            mediaPlayer = new MediaPlayer(lyd);
+            Media sound = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
+            mediaPlayer = new MediaPlayer(sound);
             mediaPlayer.seek(mediaPlayer.getStartTime());
             mediaPlayer.play();
 
