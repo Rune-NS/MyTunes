@@ -1,7 +1,9 @@
 package org.example.mytunes;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,6 +25,9 @@ public class MyTunesController {
 
     @FXML
     private TableColumn<?, ?> numberSongsOnPlaylists;
+
+    @FXML
+    private Button playPauseButten;
 
     @FXML
     private TableView<?> playlistsTable;
@@ -53,7 +58,7 @@ public class MyTunesController {
 
     @FXML
     void closeMyTunes(ActionEvent event) {
-
+        Platform.exit();
     }
 
     @FXML
@@ -79,6 +84,15 @@ public class MyTunesController {
     @FXML
     void playPause(ActionEvent event) {
 
+
+        playPauseButten.setText("❚❚");
+
+        playPauseButten.setText("▶");
+
+        /*
+        På en eller anden måde skal vi kunne tjekke om noget spiller
+        eller ikke gør så vi kan sætte den rigtige ikon på.
+         */
     }
 
     @FXML
