@@ -8,9 +8,10 @@ public class Song {
     private int duration;
 
 
-    public Song(String title, String artist, int duration) {
+    public Song(String title, String artist, String category, int duration) {
         this.title = title;
         this.artist = artist;
+        this.category = category;
         this.duration = duration;
     }
 
@@ -28,6 +29,14 @@ public class Song {
 
     public String getArtist() {
         return artist;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void setDuration(int duration) {

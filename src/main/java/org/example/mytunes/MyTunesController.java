@@ -63,7 +63,7 @@ public class MyTunesController {
 
     public void initialize() {
 
-        Song j = new Song("j", "a", 90);
+        Song j = new Song("j", "a", "jul", 90);
 
         this.songs.add(j);
 
