@@ -9,8 +9,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 
 public class MyTunesController {
+
+    private Label welcomeText;
+    private MediaPlayer mediaPlayer;
+    private boolean stopRequested = false;
+    private boolean atEndOfMedia = false;
 
     @FXML
     private TableColumn<Song, String> artistSongs;
@@ -59,16 +65,6 @@ public class MyTunesController {
     @FXML
     private Slider volume;
 
-    public void initialize() {
-
-        Song j = new Song("j", "a", "jul", 90);
-
-        this.songs.add(j);
-
-        this.songsTable.setItems(this.songs);
-
-    }
-
     @FXML
     void closeMyTunes(ActionEvent event) {
         Platform.exit();
@@ -94,12 +90,31 @@ public class MyTunesController {
 
     }
 
-    private Label welcomeText;
-    private static MediaPlayer mediaPlayer;
-
     @FXML
     void playPause(ActionEvent event) {
-        if (playPauseButten.getText().equals("▶")) {
+        Media media = new Media(getClass().getResource("Sneaky Snitch.wav").toString());
+        mediaPlayer = new MediaPlayer(media);
+
+        playPauseButten.setOnAction(e -> {
+            Status status = mediaPlayer.getStatus();
+
+            if (status == Status.UNKNOWN || status == Status.HALTED) {
+                return;
+            }
+
+            if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+                if (atEndOfMedia) {
+                    mediaPlayer.seek(mediaPlayer.getStartTime());
+                    atEndOfMedia = false;
+                }
+                mediaPlayer.play();
+            }
+            else {
+                mediaPlayer.pause();
+            }
+        });
+
+        /*if (playPauseButten.getText().equals("▶")) {
             playPauseButten.setText("⏸");
 
             try {
@@ -108,14 +123,14 @@ public class MyTunesController {
                 mediaPlayer.seek(mediaPlayer.getStartTime());
                 mediaPlayer.play();
 
-                welcomeText.setText("Now Playing :" + mediaPlayer.getMedia().getSource().toString());
+                welcomeText.setText("Now Playing:" + mediaPlayer.getMedia().getSource().toString());
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
 
         } else if (playPauseButten.getText().equals("⏸")) {
             playPauseButten.setText("▶");
-        }
+        }*/
     }
 
     @FXML
