@@ -82,7 +82,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView fx:id="songsOnPlsylistTable" prefHeight="496.0" prefWidth="491.0">
+                  <TableView fx:id="songsOnPlaylistTable" prefHeight="496.0" prefWidth="491.0">
                     <columns>
                       <TableColumn fx:id="numberSongsOnPlaylists" prefWidth="75.0" text="Number" />
                       <TableColumn fx:id="nameSongsOnPlaylists" prefWidth="425.0" text="Name" />

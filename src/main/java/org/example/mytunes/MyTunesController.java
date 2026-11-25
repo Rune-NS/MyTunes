@@ -40,7 +40,7 @@ public class MyTunesController {
     private TableView<Playlist> playlistsTable;
 
     @FXML
-    private TableView<Playlist> songsOnPlsylistTable;
+    private TableView<Playlist> songsOnPlaylistTable;
 
     @FXML
     private TableColumn<Playlist, Song> songsPlaylists;
