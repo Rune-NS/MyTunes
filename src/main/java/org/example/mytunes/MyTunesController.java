@@ -50,10 +50,13 @@ public class MyTunesController {
     private TableView<Playlist> playlistsTable;
 
     @FXML
-    private TableView<Playlist> songsOnPlsylistTable;
+    private TableView<Playlist> songsOnPlaylistTable;
 
     @FXML
     private TableColumn<Playlist, Song> songsPlaylists;
+
+    @FXML
+    private Label currentlyPlayingName;
 
     @FXML
     private TableView<Song> songsTable;
@@ -129,10 +132,6 @@ public class MyTunesController {
             }
 
             if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                if (atEndOfMedia) {
-                    mp.seek(mp.getStartTime());
-                    atEndOfMedia = false;
-                }
                 mp.play();
             }
             else {
@@ -140,23 +139,11 @@ public class MyTunesController {
             }
         });
 
-        mp.setOnPlaying(() -> {
-            if (stopRequested) {
-                mp.pause();
-                stopRequested = false;
-            }
-            else {
-                playPauseButten.setText("⏸");
-            }
-        });
-
+        mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
+        mp.setOnStopped(() -> playPauseButten.setText("▶"));
 
-        mp.setOnEndOfMedia(() -> {
-            playPauseButten.setText("▶");
-            stopRequested = true;
-            atEndOfMedia = true;
-        });
+        mp.setOnEndOfMedia(() -> mp.stop());
     }
 
     @FXML
@@ -230,7 +217,6 @@ public class MyTunesController {
 
     }
 
-    //Skal bruges til at opdatere volume og media
     protected void updateValues() {
         if (volumeSlider != null) {
             if (volumeSlider.isValueChanging()) {

@@ -82,7 +82,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView fx:id="songsOnPlsylistTable" prefHeight="496.0" prefWidth="491.0">
+                  <TableView fx:id="songsOnPlaylistTable" prefHeight="496.0" prefWidth="491.0">
                     <columns>
                       <TableColumn fx:id="numberSongsOnPlaylists" prefWidth="75.0" text="Number" />
                       <TableColumn fx:id="nameSongsOnPlaylists" prefWidth="425.0" text="Name" />
@@ -110,7 +110,7 @@
                   </GridPane>
                   <VBox prefHeight="230.0" prefWidth="512.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="95.0" text="Nothing" textAlignment="CENTER">
+                        <Label fx:id="currentlyPlayingName" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="95.0" text="Nothing" textAlignment="CENTER">
                            <VBox.margin>
                               <Insets left="215.0" top="20.0" />
                            </VBox.margin>
