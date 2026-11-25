@@ -1,6 +1,7 @@
 package org.example.mytunes;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,7 +63,17 @@ public class MyTunesController {
     private ObservableList<Song> songs = FXCollections.observableArrayList();
 
     @FXML
-    private Slider volume;
+    private Slider volumeSlider;
+
+    public void MediaControl(final MediaPlayer mp) {
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            public void invalidated(Observable ov) {
+                if (volumeSlider.isValueChanging()) {
+                    mp.setVolume(volumeSlider.getValue() / 100.0);
+                }
+            }
+        });
+    }
 
     @FXML
     void closeMyTunes(ActionEvent event) {
@@ -88,6 +99,9 @@ public class MyTunesController {
     void nextSong(ActionEvent event) {
 
     }
+
+    private Label welcomeText;
+    private static MediaPlayer mediaPlayer;
 
     @FXML
     void playPause(ActionEvent event) {
@@ -175,5 +189,13 @@ public class MyTunesController {
     @FXML
     void songsOnPlaylistDelete(ActionEvent event) {
 
+    }
+
+    protected void updateValues() {
+        if (volumeSlider != null) {
+            if (!volumeSlider.isValueChanging()) {
+                volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
+            }
+        }
     }
 }
