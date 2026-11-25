@@ -9,8 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 
 public class MyTunesController {
+
+    private MediaPlayer mp;
+    private boolean stopRequested = false;
+    private boolean atEndOfMedia = false;
 
     @FXML
     private TableColumn<Song, String> artistSongs;
@@ -59,16 +64,6 @@ public class MyTunesController {
     @FXML
     private Slider volume;
 
-    public void initialize() {
-
-        Song j = new Song("j", "a", "jul", 90);
-
-        this.songs.add(j);
-
-        this.songsTable.setItems(this.songs);
-
-    }
-
     @FXML
     void closeMyTunes(ActionEvent event) {
         Platform.exit();
@@ -94,29 +89,47 @@ public class MyTunesController {
 
     }
 
-    private Label welcomeText;
-    private static MediaPlayer mediaPlayer;
-
     @FXML
     void playPause(ActionEvent event) {
-        if (playPauseButten.getText().equals("▶")) {
-            playPauseButten.setText("⏸");
+        Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
+        mp = new MediaPlayer(media);
 
-            try {
-                Media sound = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
-                mediaPlayer = new MediaPlayer(sound);
-                mediaPlayer.seek(mediaPlayer.getStartTime());
-                mediaPlayer.play();
+        playPauseButten.setOnAction(e -> {
+            Status status = mp.getStatus();
 
-                welcomeText.setText("Now Playing :" + mediaPlayer.getMedia().getSource().toString());
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+            if (status == Status.UNKNOWN || status == Status.HALTED) {
+                return;
             }
 
-        } else if (playPauseButten.getText().equals("⏸")) {
-            playPauseButten.setText("▶");
+            if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+                if (atEndOfMedia) {
+                    mp.seek(mp.getStartTime());
+                    atEndOfMedia = false;
+                }
+                mp.play();
+            }
+            else {
+                mp.pause();
+            }
+        });
 
-        }
+        mp.setOnPlaying(() -> {
+            if (stopRequested) {
+                mp.pause();
+                stopRequested = false;
+            }
+            else {
+                playPauseButten.setText("⏸");
+            }
+        });
+
+        mp.setOnPaused(() -> playPauseButten.setText("▶"));
+
+        mp.setOnEndOfMedia(() -> {
+            playPauseButten.setText("▶");
+            stopRequested = true;
+            atEndOfMedia = true;
+        });
     }
 
     @FXML
