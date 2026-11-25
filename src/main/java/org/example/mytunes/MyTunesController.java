@@ -26,8 +26,6 @@ public class MyTunesController {
     private ObservableList<Song> songs = FXCollections.observableArrayList();
     private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
 
-
-
     @FXML
     private TableColumn<Song, String> artistSongs;
 
@@ -81,12 +79,12 @@ public class MyTunesController {
     }
 
     //Volume slider
-    public MyTunesController(final MediaPlayer mp) {
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            public void invalidated(Observable ov) {
-                if (volumeSlider.isValueChanging()) {
-                    mp.setVolume(volumeSlider.getValue() / 100.0);
-                }
+    @FXML
+    public void initialize() {
+        volumeSlider.setValue(25);
+        volumeSlider.valueProperty().addListener((obs, oldVal, newValu) ->{
+            if (mp != null) {
+                mp.setVolume(volumeSlider.getValue() / 100.0);
             }
         });
     }
@@ -187,11 +185,13 @@ public class MyTunesController {
         TextField navnefelt = new TextField();
         TextField artistfelt = new TextField();
         SongComboBox.getItems().addAll(songs);
-        navnefelt.setPromptText("Name of song");
-        artistfelt.setPromptText("By what artist");
-        SongComboBox.setPromptText("Choose song");
+        TextField timefelt = new TextField();
+        navnefelt.setPromptText("Name");
+        artistfelt.setPromptText("Artist");
+        SongComboBox.setPromptText("Category");
+        timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30?? Uanset hvad skal der en try catch
         FileChooser filechooser = new FileChooser();
-        Button b = new Button("Choose fil");
+        Button b = new Button("Fil");
         b.setOnAction((event1) -> {
             File mappe = new File("Musik");
             if (mappe.isDirectory()) {
@@ -203,7 +203,7 @@ public class MyTunesController {
             }
         });
 
-        dialogvindue.getDialogPane().setContent(new VBox(10.0, SongComboBox, navnefelt, artistfelt, b));
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, SongComboBox, timefelt, b));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
     }
 
@@ -215,13 +215,5 @@ public class MyTunesController {
     @FXML
     void songsOnPlaylistDelete(ActionEvent event) {
 
-    }
-
-    protected void updateValues() {
-        if (volumeSlider != null) {
-            if (volumeSlider.isValueChanging()) {
-                volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
-            }
-        }
     }
 }
