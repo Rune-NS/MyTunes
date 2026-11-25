@@ -191,6 +191,7 @@ public class MyTunesController {
 
     }
 
+    //Skal bruges til at opdatere volume og media
     protected void updateValues() {
         if (volumeSlider != null) {
             if (!volumeSlider.isValueChanging()) {
