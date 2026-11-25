@@ -119,10 +119,6 @@ public class MyTunesController {
             }
 
             if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                if (atEndOfMedia) {
-                    mp.seek(mp.getStartTime());
-                    atEndOfMedia = false;
-                }
                 mp.play();
             }
             else {
@@ -130,23 +126,11 @@ public class MyTunesController {
             }
         });
 
-        mp.setOnPlaying(() -> {
-            if (stopRequested) {
-                mp.pause();
-                stopRequested = false;
-            }
-            else {
-                playPauseButten.setText("⏸");
-            }
-        });
-
+        mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
+        mp.setOnStopped(() -> playPauseButten.setText("▶"));
 
-        mp.setOnEndOfMedia(() -> {
-            playPauseButten.setText("▶");
-            stopRequested = true;
-            atEndOfMedia = true;
-        });
+        mp.setOnEndOfMedia(() -> mp.stop());
     }
 
     @FXML
