@@ -46,6 +46,9 @@ public class MyTunesController {
     private TableColumn<Playlist, Song> songsPlaylists;
 
     @FXML
+    private Label currentlyPlayingName;
+
+    @FXML
     private TableView<Song> songsTable;
 
     @FXML
