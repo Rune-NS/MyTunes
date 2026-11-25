@@ -1,14 +1,17 @@
 package org.example.mytunes;
 
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class MyTunesController {
 
@@ -56,17 +59,21 @@ public class MyTunesController {
 
     private ObservableList<Song> songs = FXCollections.observableArrayList();
 
+    private MediaPlayer mp;
+
     @FXML
-    private Slider volume;
+    private Slider volumeSlider;
 
+    //Volume Slider
     public void initialize() {
-
-        Song j = new Song("j", "a", "jul", 90);
-
-        this.songs.add(j);
-
-        this.songsTable.setItems(this.songs);
-
+        volumeSlider.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable ov) {
+                if (volumeSlider.isValueChanging()) {
+                    mp.setVolume(volumeSlider.getValue() / 100.0);
+                }
+            }
+        });
     }
 
     @FXML
@@ -94,29 +101,10 @@ public class MyTunesController {
 
     }
 
-    private Label welcomeText;
-    private static MediaPlayer mediaPlayer;
 
     @FXML
     void playPause(ActionEvent event) {
-        if (playPauseButten.getText().equals("▶")) {
-            playPauseButten.setText("⏸");
 
-            try {
-                Media sound = new Media(String.valueOf(getClass().getResource("sample-3s.mp3")));
-                mediaPlayer = new MediaPlayer(sound);
-                mediaPlayer.seek(mediaPlayer.getStartTime());
-                mediaPlayer.play();
-
-                welcomeText.setText("Now Playing :" + mediaPlayer.getMedia().getSource().toString());
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-
-        } else if (playPauseButten.getText().equals("⏸")) {
-            playPauseButten.setText("▶");
-
-        }
     }
 
     @FXML
@@ -162,5 +150,13 @@ public class MyTunesController {
     @FXML
     void songsOnPlaylistDelete(ActionEvent event) {
 
+    }
+
+    protected void updateValues() {
+        if (volumeSlider != null) {
+            if (!volumeSlider.isValueChanging()) {
+                volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
+            }
+        }
     }
 }
