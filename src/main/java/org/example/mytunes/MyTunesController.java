@@ -8,15 +8,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.Optional;
 
 public class MyTunesController {
 
+    private File valgt;
     private MediaPlayer mp;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
+    private ObservableList<Song> songs = FXCollections.observableArrayList();
+    private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
+
+
 
     @FXML
     private TableColumn<Song, String> artistSongs;
@@ -63,12 +73,15 @@ public class MyTunesController {
     @FXML
     private TableColumn<Song, String> titleSongs;
 
-    private ObservableList<Song> songs = FXCollections.observableArrayList();
-
     @FXML
     private Slider volumeSlider;
 
-    public void MediaControl(final MediaPlayer mp) {
+    //Tom constructor skal være der!
+    public MyTunesController() {
+    }
+
+    //Volume slider
+    public MyTunesController(final MediaPlayer mp) {
         volumeSlider.valueProperty().addListener(new InvalidationListener() {
             public void invalidated(Observable ov) {
                 if (volumeSlider.isValueChanging()) {
@@ -165,7 +178,33 @@ public class MyTunesController {
 
     @FXML
     void songsNew(ActionEvent event) {
+        this.valgt = null;
+        Dialog<ButtonType> dialogvindue = new Dialog<>();
+        dialogvindue.setTitle("Add or Edit Song");
+        dialogvindue.setHeaderText("New Song");
+        dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        ComboBox<Song> SongComboBox = new ComboBox<>();
+        TextField navnefelt = new TextField();
+        TextField artistfelt = new TextField();
+        SongComboBox.getItems().addAll(songs);
+        navnefelt.setPromptText("Name of song");
+        artistfelt.setPromptText("By what artist");
+        SongComboBox.setPromptText("Choose song");
+        FileChooser filechooser = new FileChooser();
+        Button b = new Button("Choose fil");
+        b.setOnAction((event1) -> {
+            File mappe = new File("Musik");
+            if (mappe.isDirectory()) {
+                filechooser.setInitialDirectory(mappe);
+            }
+            File fil = filechooser.showOpenDialog(b.getScene().getWindow());
+            if (fil != null) {
+                this.valgt = fil;
+            }
+        });
 
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, SongComboBox, navnefelt, artistfelt, b));
+        Optional<ButtonType> knap = dialogvindue.showAndWait();
     }
 
     @FXML
@@ -180,7 +219,7 @@ public class MyTunesController {
 
     protected void updateValues() {
         if (volumeSlider != null) {
-            if (!volumeSlider.isValueChanging()) {
+            if (volumeSlider.isValueChanging()) {
                 volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
             }
         }
