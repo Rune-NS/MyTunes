@@ -139,7 +139,12 @@ public class MyTunesController {
 
     @FXML
     void deletePlaylist(ActionEvent event) {
-        //elevliste opgave
+        try {
+            playlists.remove(playlistsTable.getSelectionModel().getSelectedIndex());
+        }
+        catch (IndexOutOfBoundsException ex) {
+            System.out.println("Table is empty.");
+        }
     }
 
     //Gør at man kan ændre på en playlistes navn
