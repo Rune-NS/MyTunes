@@ -193,7 +193,41 @@ public class MyTunesController {
 
     @FXML
     void songsEdit(ActionEvent event) {
-        //elevliste opgave
+        Song s1 = this.songsTable.getSelectionModel().getSelectedItem();
+
+        if (s1 != null) {
+            this.valgt = null;
+            Dialog<ButtonType> dialogvindue = new Dialog<>();
+            dialogvindue.setTitle("Add or Edit Song");
+            dialogvindue.setHeaderText("New Song");
+            dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            ComboBox<Song> CategoryComboBox = new ComboBox<>();
+            TextField navnefelt = new TextField();
+            TextField artistfelt = new TextField();
+            //CategoryComboBox.getItems().addAll(Category); //lav en arrayliste med alle Category's
+            TextField timefelt = new TextField();
+            navnefelt.setPromptText("Name");
+            artistfelt.setPromptText("Artist");
+            CategoryComboBox.setPromptText("Category");
+            timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
+            FileChooser filechooser = new FileChooser();
+            Button b = new Button("Fil");
+            b.setOnAction((event1) -> {
+                File mappe = new File("Musik");
+                if (mappe.isDirectory()) {
+                    filechooser.setInitialDirectory(mappe);
+                }
+                File fil = filechooser.showOpenDialog(b.getScene().getWindow());
+                if (fil != null) {
+                    this.valgt = fil;
+                }
+
+
+                dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
+                Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+            });
+        }
     }
 
     @FXML
