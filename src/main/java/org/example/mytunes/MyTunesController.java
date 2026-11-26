@@ -151,7 +151,7 @@ public class MyTunesController {
     void newPlaylist(ActionEvent event) {
         this.valgt = null;
         Dialog<ButtonType> dialogvindue = new Dialog<>();
-        dialogvindue.setTitle("Add or Edit Playlist");
+        dialogvindue.setTitle("Add Playlist");
         dialogvindue.setHeaderText("New Playlist");
         dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField navnefelt = new TextField();
