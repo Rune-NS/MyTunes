@@ -131,9 +131,9 @@ public class MyTunesController {
         return String.format("%d:%02d", seconds / 60, seconds % 60);
     }
 
+    //Lukker programmet
     @FXML
     void closeMyTunes(ActionEvent event) {
-        //close program
         Platform.exit();
     }
 
@@ -142,9 +142,50 @@ public class MyTunesController {
         //elevliste opgave
     }
 
+    //Gør at man kan ændre på en playlistes navn
     @FXML
     void editPlaylist(ActionEvent event) {
+        Playlist selected = playlistsTable.getSelectionModel().getSelectedItem();
 
+        if (selected == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a playlist to edit.").showAndWait();
+            return;
+        }
+
+        Dialog<ButtonType> dialogvindue = new Dialog<>();
+        dialogvindue.setTitle("Edit Playlist");
+        dialogvindue.setHeaderText("Edit Playlist Name");
+        dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        TextField navnefelt = new TextField(selected.getName());
+        navnefelt.setPromptText("Name");
+
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
+
+        boolean done = false;
+
+        while (!done) {
+            Platform.runLater(() -> {
+                navnefelt.requestFocus();
+                navnefelt.selectAll();
+            });
+
+            Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+            if (knap.isPresent() && knap.get() == ButtonType.OK) {
+                String name = navnefelt.getText().trim();
+
+                if (name.isEmpty()) {
+                    new Alert(Alert.AlertType.WARNING, "The playlist must have a name.").showAndWait();
+                } else {
+                    selected.setName(name);
+                    playlistsTable.refresh();
+                    done = true;
+                }
+            } else {
+                done = true;
+            }
+        }
     }
 
     @FXML
@@ -159,6 +200,7 @@ public class MyTunesController {
 
 
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
+        Platform.runLater(navnefelt::requestFocus);
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
         if (knap.isPresent() && knap.get() == ButtonType.OK) {
