@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Playlist {
 
     private String name;
-    private int totalduration;
-    private ArrayList<Song> playlistsongs = new ArrayList<>();
+    private int totalDuration;
+    private ArrayList<Song> playlistSongs = new ArrayList<>();
 
     public Playlist(String name, int totalduration, ArrayList<Song> songs) {
         this.name = name;
-        this.totalduration = totalduration;
-        this.playlistsongs = songs;
+        this.totalDuration = totalduration;
+        this.playlistSongs = songs;
     }
 
     public void setName(String name) {
@@ -23,27 +23,27 @@ public class Playlist {
     }
 
     public ArrayList<Song> getSongs() {
-        return playlistsongs;
+        return playlistSongs;
     }
 
     public int getTotalDuration(Song s) {
-        return totalduration;
+        return totalDuration;
     }
 
     public void addSong(Song s) {
-        playlistsongs.add(s);
-        totalduration += s.getDuration();
+        playlistSongs.add(s);
+        totalDuration += s.getDuration();
     }
 
     public void setSongs(ArrayList<Song> songs) {
-        this.playlistsongs = songs;
+        this.playlistSongs = songs;
     }
 
     public ArrayList<Song> getPlaylistsongs() {
-        return playlistsongs;
+        return playlistSongs;
     }
 
     public void fjernSong(Song s) {
-        playlistsongs.remove(s);
+        playlistSongs.remove(s);
     }
 }
