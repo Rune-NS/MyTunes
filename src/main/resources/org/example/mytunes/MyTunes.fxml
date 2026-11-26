@@ -31,7 +31,8 @@
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#search" text="Søg" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#search" text="🔍" GridPane.columnIndex="2" />
+            <Button mnemonicParsing="false" onAction="#resetFilters" text="🏠" GridPane.halignment="RIGHT" />
          </children>
       </GridPane>
       <HBox prefHeight="834.0" prefWidth="1535.0">

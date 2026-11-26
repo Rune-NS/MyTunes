@@ -153,6 +153,11 @@ public class MyTunesController {
     }
 
     @FXML
+    void resetFilters(ActionEvent event) {
+
+    }
+
+    @FXML
     void songDown(ActionEvent event) {
 
     }
