@@ -90,6 +90,31 @@ public class MyTunesController {
                 mp.setVolume(volumeSlider.getValue() / 100.0);
             }
         });
+
+        //bygger en mediaplayer og håndterer play/pause
+        Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
+        mp = new MediaPlayer(media);
+
+        playPauseButten.setOnAction(e -> {
+            Status status = mp.getStatus();
+
+            if (status == Status.UNKNOWN || status == Status.HALTED) {
+                return;
+            }
+
+            if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
+                mp.play();
+            }
+            else {
+                mp.pause();
+            }
+        });
+
+        mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
+        mp.setOnPaused(() -> playPauseButten.setText("▶"));
+        mp.setOnStopped(() -> playPauseButten.setText("▶"));
+
+        mp.setOnEndOfMedia(() -> mp.stop());
     }
 
     @FXML
@@ -127,29 +152,7 @@ public class MyTunesController {
 
     @FXML
     void playPause(ActionEvent event) {
-        Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
-        mp = new MediaPlayer(media);
 
-        playPauseButten.setOnAction(e -> {
-            Status status = mp.getStatus();
-
-            if (status == Status.UNKNOWN || status == Status.HALTED) {
-                return;
-            }
-
-            if (status == Status.PAUSED || status == Status.READY || status == Status.STOPPED) {
-                mp.play();
-            }
-            else {
-                mp.pause();
-            }
-        });
-
-        mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
-        mp.setOnPaused(() -> playPauseButten.setText("▶"));
-        mp.setOnStopped(() -> playPauseButten.setText("▶"));
-
-        mp.setOnEndOfMedia(() -> mp.stop());
     }
 
     @FXML
