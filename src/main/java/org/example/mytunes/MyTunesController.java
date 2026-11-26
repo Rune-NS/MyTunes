@@ -19,6 +19,7 @@ import java.util.Optional;
 
 public class MyTunesController {
 
+    private Label welcomeText;
     private File valgt;
     private MediaPlayer mp;
     private boolean stopRequested = false;
@@ -125,14 +126,6 @@ public class MyTunesController {
     }
 
     @FXML
-    void nextSong(ActionEvent event) {
-
-    }
-
-    private Label welcomeText;
-    private static MediaPlayer mediaPlayer;
-
-    @FXML
     void playPause(ActionEvent event) {
         Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
         mp = new MediaPlayer(media);
@@ -160,6 +153,11 @@ public class MyTunesController {
     }
 
     @FXML
+    void nextSong(ActionEvent event) {
+
+    }
+
+    @FXML
     void previousSong(ActionEvent event) {
 
     }
@@ -167,6 +165,11 @@ public class MyTunesController {
     @FXML
     void search(ActionEvent event) {
         //elevliste opgave
+    }
+
+    @FXML
+    void resetFilters(ActionEvent event) {
+
     }
 
     @FXML
