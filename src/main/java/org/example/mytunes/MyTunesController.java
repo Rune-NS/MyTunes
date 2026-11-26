@@ -130,7 +130,7 @@ public class MyTunesController {
 
     @FXML
     void editPlaylist(ActionEvent event) {
-        //elevliste opgave
+
     }
 
     @FXML
@@ -147,7 +147,8 @@ public class MyTunesController {
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som ligger det man skriver i listen med alle playlister. Den skal være uden try forde man skal kunne give lige det navn man vil
+        //mangler den del som lægger det man skriver i listen med alle playlister.
+        //Den skal være uden try fordi man skal kunne give lige det navn man vil have.
     }
 
     @FXML
