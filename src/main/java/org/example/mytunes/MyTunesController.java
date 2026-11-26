@@ -83,7 +83,7 @@ public class MyTunesController {
     @FXML
     public void initialize() {
         //sætter standard value
-        volumeSlider.setValue(0);
+        volumeSlider.setValue(25);
         volumeSlider.valueProperty().addListener((obs, oldVal, newValu) ->{
             //cheker om der er en media player og sætter den til listener value.
             if (mp != null) {
