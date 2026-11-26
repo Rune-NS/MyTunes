@@ -16,6 +16,33 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.mytunes.MyTunesController">
    <children>
+      <GridPane prefHeight="63.0" prefWidth="1535.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1111.1999877929688" minWidth="10.0" prefWidth="834.3333333333333" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="828.8000732421874" minWidth="10.0" prefWidth="356.33333333333326" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.6000122070313" minWidth="10.0" prefWidth="54.400073242187545" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TextField fx:id="søgTextField" prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#search" text="🔍" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#resetFilters" text="🏠" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
       <HBox prefHeight="834.0" prefWidth="1535.0">
          <children>
             <VBox prefHeight="822.0" prefWidth="511.66">
@@ -25,8 +52,11 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="20.0" />
                      </VBox.margin>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
                   </Label>
                   <TableView fx:id="playlistsTable" prefHeight="670.0" prefWidth="512.0">
                     <columns>
@@ -61,7 +91,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="20.0" />
                      </VBox.margin>
                   </Label>
                   <TableView fx:id="songsOnPlaylistTable" prefHeight="496.0" prefWidth="491.0">
@@ -84,10 +114,22 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#songUp" prefHeight="40.0" prefWidth="40.0" text="Up" GridPane.halignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#songDown" prefHeight="40.0" prefWidth="50.0" text="Down" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#songsOnPlayListAdd" prefHeight="40.0" prefWidth="40.0" text="Add" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                        <Button mnemonicParsing="false" onAction="#songsOnPlaylistDelete" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                        <Button mnemonicParsing="false" onAction="#songUp" prefHeight="40.0" prefWidth="40.0" text="Up" GridPane.halignment="CENTER">
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#songDown" prefHeight="40.0" prefWidth="50.0" text="Down" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#songsOnPlayListAdd" prefHeight="40.0" prefWidth="40.0" text="Add" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#songsOnPlaylistDelete" prefHeight="40.0" prefWidth="50.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin></Button>
                      </children>
                   </GridPane>
                   <VBox prefHeight="230.0" prefWidth="512.0">
@@ -171,12 +213,9 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets left="10.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#resetFilters" text="🏠" />
-                  <TextField fx:id="søgTextField" prefHeight="26.0" prefWidth="467.0" />
-                  <Button mnemonicParsing="false" onAction="#search" text="🔍" />
                   <TableView fx:id="songsTable" prefHeight="670.0" prefWidth="491.0">
                     <columns>
                       <TableColumn fx:id="titleSongs" prefWidth="122.8" text="Title" />
