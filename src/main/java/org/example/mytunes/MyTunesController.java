@@ -19,6 +19,7 @@ import java.util.Optional;
 
 public class MyTunesController {
 
+    private Label welcomeText;
     private File valgt;
     private MediaPlayer mp;
     private boolean stopRequested = false;
@@ -113,9 +114,6 @@ public class MyTunesController {
     void nextSong(ActionEvent event) {
 
     }
-
-    private Label welcomeText;
-    private static MediaPlayer mediaPlayer;
 
     @FXML
     void playPause(ActionEvent event) {
