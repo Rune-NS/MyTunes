@@ -111,11 +111,6 @@ public class MyTunesController {
     }
 
     @FXML
-    void nextSong(ActionEvent event) {
-
-    }
-
-    @FXML
     void playPause(ActionEvent event) {
         Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
         mp = new MediaPlayer(media);
@@ -140,6 +135,11 @@ public class MyTunesController {
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
 
         mp.setOnEndOfMedia(() -> mp.stop());
+    }
+
+    @FXML
+    void nextSong(ActionEvent event) {
+
     }
 
     @FXML
