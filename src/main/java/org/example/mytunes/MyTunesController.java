@@ -24,7 +24,7 @@ public class MyTunesController {
     private MediaPlayer mp;
     private boolean stopRequested = false;
     private boolean atEndOfMedia = false;
-    private ObservableList<Song> songs = FXCollections.observableArrayList();
+    private final ObservableList<Song> songs = FXCollections.observableArrayList();
     private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
 
     @FXML
@@ -147,7 +147,7 @@ public class MyTunesController {
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som ligger det man skriver i listen med alle playlister.
+        //mangler den del som ligger det man skriver i listen med alle playlister. Den skal være uden try forde man skal kunne give lige det navn man vil
     }
 
     @FXML

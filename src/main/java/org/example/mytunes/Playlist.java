@@ -6,12 +6,12 @@ public class Playlist {
 
     private String name;
     private int totalduration;
-    private ArrayList<Song> songs = new ArrayList<>();
+    private ArrayList<Song> playlistsongs = new ArrayList<>();
 
     public Playlist(String name, int totalduration, ArrayList<Song> songs) {
         this.name = name;
         this.totalduration = totalduration;
-        this.songs = songs;
+        this.playlistsongs = songs;
     }
 
     public void setName(String name) {
@@ -22,12 +22,8 @@ public class Playlist {
         return name;
     }
 
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
-
     public ArrayList<Song> getSongs() {
-        return songs;
+        return playlistsongs;
     }
 
     public int getTotalDuration(Song s) {
@@ -35,8 +31,19 @@ public class Playlist {
     }
 
     public void addSong(Song s) {
-        songs.add(s);
+        playlistsongs.add(s);
         totalduration += s.getDuration();
     }
 
+    public void setSongs(ArrayList<Song> songs) {
+        this.playlistsongs = songs;
+    }
+
+    public ArrayList<Song> getPlaylistsongs() {
+        return playlistsongs;
+    }
+
+    public void fjernSong(Song s) {
+        playlistsongs.remove(s);
+    }
 }
