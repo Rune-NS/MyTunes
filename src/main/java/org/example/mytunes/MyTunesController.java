@@ -83,7 +83,7 @@ public class MyTunesController {
     @FXML
     public void initialize() {
         //sætter standard value
-        volumeSlider.setValue(25);
+        volumeSlider.setValue(0);
         volumeSlider.valueProperty().addListener((obs, oldVal, newValu) ->{
             //cheker om der er en media player og sætter den til listener value.
             if (mp != null) {
@@ -224,7 +224,8 @@ public class MyTunesController {
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som ligger den nye sang i arraylisten med alle de andre.
+        //Mangler den del som ligger den nye sang i arraylisten med alle de andre.
+        //Programmet skal kun tage i mod mp3 og wav. Og time må man kun skrive en valid tid fx 1:30.
     }
 
     @FXML
