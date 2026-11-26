@@ -81,8 +81,10 @@ public class MyTunesController {
     //Volume slider
     @FXML
     public void initialize() {
+        //sætter standard value
         volumeSlider.setValue(25);
         volumeSlider.valueProperty().addListener((obs, oldVal, newValu) ->{
+            //cheker om der er en media player og sætter den til listener value.
             if (mp != null) {
                 mp.setVolume(volumeSlider.getValue() / 100.0);
             }
@@ -91,22 +93,35 @@ public class MyTunesController {
 
     @FXML
     void closeMyTunes(ActionEvent event) {
+        //close program
         Platform.exit();
     }
 
     @FXML
     void deletePlaylist(ActionEvent event) {
-
+        //elevliste opgave
     }
 
     @FXML
     void editPlaylist(ActionEvent event) {
-
+        //elevliste opgave
     }
 
     @FXML
     void newPlaylist(ActionEvent event) {
+        this.valgt = null;
+        Dialog<ButtonType> dialogvindue = new Dialog<>();
+        dialogvindue.setTitle("Add or Edit Playlist");
+        dialogvindue.setHeaderText("New Playlist");
+        dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        TextField navnefelt = new TextField();
+        navnefelt.setPromptText("Name");
 
+
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
+        Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+        //mangler den del som ligger det man skriver i listen med alle playlister.
     }
 
     @FXML
@@ -151,7 +166,7 @@ public class MyTunesController {
 
     @FXML
     void search(ActionEvent event) {
-
+        //elevliste opgave
     }
 
     @FXML
@@ -166,12 +181,12 @@ public class MyTunesController {
 
     @FXML
     void songsDelete(ActionEvent event) {
-
+        //elevliste opgave
     }
 
     @FXML
     void songsEdit(ActionEvent event) {
-
+        //elevliste opgave
     }
 
     @FXML
@@ -181,15 +196,15 @@ public class MyTunesController {
         dialogvindue.setTitle("Add or Edit Song");
         dialogvindue.setHeaderText("New Song");
         dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        ComboBox<Song> SongComboBox = new ComboBox<>();
+        ComboBox<Song> CategoryComboBox = new ComboBox<>();
         TextField navnefelt = new TextField();
         TextField artistfelt = new TextField();
-        SongComboBox.getItems().addAll(songs);
+        //CategoryComboBox.getItems().addAll(Category); //lav en arrayliste med alle Category's
         TextField timefelt = new TextField();
         navnefelt.setPromptText("Name");
         artistfelt.setPromptText("Artist");
-        SongComboBox.setPromptText("Category");
-        timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30?? Uanset hvad skal der en try catch
+        CategoryComboBox.setPromptText("Category");
+        timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
         FileChooser filechooser = new FileChooser();
         Button b = new Button("Fil");
         b.setOnAction((event1) -> {
@@ -203,8 +218,10 @@ public class MyTunesController {
             }
         });
 
-        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, SongComboBox, timefelt, b));
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+        //mangler den del som ligger den nye sang i arraylisten med alle de andre.
     }
 
     @FXML
@@ -214,6 +231,6 @@ public class MyTunesController {
 
     @FXML
     void songsOnPlaylistDelete(ActionEvent event) {
-
+        //elevliste opgave?
     }
 }

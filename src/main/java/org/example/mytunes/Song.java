@@ -6,9 +6,10 @@ public class Song {
     private String artist;
     private String category;
     private int duration;
+    private String musik;
 
 
-    public Song(String title, String artist, String category, int duration) {
+    public Song(String title, String artist, String category, int duration, String musik) {
         this.title = title;
         this.artist = artist;
         this.category = category;
@@ -45,5 +46,13 @@ public class Song {
 
     public int getDuration() {
         return duration;
+    }
+
+    public void setMusik(String musik) {
+        this.musik = musik;
+    }
+
+    public String getMusik() {
+        return musik;
     }
 }
