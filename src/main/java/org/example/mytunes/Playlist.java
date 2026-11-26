@@ -26,7 +26,7 @@ public class Playlist {
         return playlistSongs;
     }
 
-    public int getTotalDuration(Song s) {
+    public int getTotalDuration() {
         return totalDuration;
     }
 

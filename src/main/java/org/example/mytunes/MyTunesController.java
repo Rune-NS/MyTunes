@@ -3,6 +3,7 @@ package org.example.mytunes;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +14,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.FileChooser;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class MyTunesController {
@@ -52,7 +55,7 @@ public class MyTunesController {
     private TableView<Playlist> songsOnPlaylistTable;
 
     @FXML
-    private TableColumn<Playlist, Song> songsPlaylists;
+    private TableColumn<Playlist, String> songsPlaylists;
 
     @FXML
     private Label currentlyPlayingName;
@@ -113,8 +116,19 @@ public class MyTunesController {
         mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
-
         mp.setOnEndOfMedia(() -> mp.stop());
+
+        //binder playlists til playlistsTable
+        playlistsTable.setItems(playlists);
+
+        namePlaylists.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
+        songsPlaylists.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSongs().size())));
+        timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
+    }
+
+    //ændrer sekunder til minutter og sekunder (m:ss)
+    private String formatTime(int seconds) {
+        return String.format("%d:%02d", seconds / 60, seconds % 60);
     }
 
     @FXML
@@ -147,8 +161,18 @@ public class MyTunesController {
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som lægger det man skriver i listen med alle playlister.
-        //Den skal være uden try fordi man skal kunne give lige det navn man vil have.
+        if (knap.isPresent() && knap.get() == ButtonType.OK) {
+            String name = navnefelt.getText().trim();
+
+            if (name.isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "The playlist must have a name.").showAndWait();
+                return;
+            }
+
+            Playlist p = new Playlist(name, 0, new ArrayList<>());
+
+            playlists.add(p);
+        }
     }
 
     @FXML
