@@ -200,14 +200,17 @@ public class MyTunesController {
         dialogvindue.setHeaderText("New Song");
         dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         ComboBox<Song> CategoryComboBox = new ComboBox<>();
+
         TextField navnefelt = new TextField();
         TextField artistfelt = new TextField();
         //CategoryComboBox.getItems().addAll(Category); //lav en arrayliste med alle Category's
         TextField timefelt = new TextField();
+
         navnefelt.setPromptText("Name");
         artistfelt.setPromptText("Artist");
         CategoryComboBox.setPromptText("Category");
         timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
+
         FileChooser filechooser = new FileChooser();
         Button b = new Button("Fil");
         b.setOnAction((event1) -> {
@@ -224,7 +227,7 @@ public class MyTunesController {
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som ligger den nye sang i arraylisten med alle de andre.
+        //mangler den del som lægger den nye sang i arraylisten med alle de andre.
     }
 
     @FXML
