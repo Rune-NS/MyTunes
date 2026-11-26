@@ -94,7 +94,7 @@ public class MyTunesController {
             }
         });
 
-        //laver en mediaplayer og styrer play/pause
+        //Laver en mediaplayer og styrer play/pause
         Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
         mp = new MediaPlayer(media);
 
@@ -118,7 +118,7 @@ public class MyTunesController {
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
         mp.setOnEndOfMedia(() -> mp.stop());
 
-        //binder playlists til playlistsTable
+        //Binder playlists til playlistsTable
         playlistsTable.setItems(playlists);
 
         namePlaylists.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
@@ -126,7 +126,7 @@ public class MyTunesController {
         timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
     }
 
-    //ændrer sekunder til minutter og sekunder (m:ss)
+    //Ændrer sekunder til minutter og sekunder (m:ss)
     private String formatTime(int seconds) {
         return String.format("%d:%02d", seconds / 60, seconds % 60);
     }
