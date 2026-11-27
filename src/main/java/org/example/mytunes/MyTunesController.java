@@ -113,6 +113,7 @@ public class MyTunesController {
             }
         });
 
+        //Sørger for at knappen ændrer udseende når man klikker på den, og mens noget musik spiller
         mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
@@ -137,17 +138,26 @@ public class MyTunesController {
     //Lukker programmet
     @FXML
     void closeMyTunes(ActionEvent event) {
-        //close program
         Platform.exit();
     }
 
+    //Gør at man kan slette en playliste
     @FXML
     void deletePlaylist(ActionEvent event) {
-        try {
-            playlists.remove(playlistsTable.getSelectionModel().getSelectedIndex());
+        int selectedIndex = playlistsTable.getSelectionModel().getSelectedIndex();
+
+        if (selectedIndex < 0) {
+            new Alert(Alert.AlertType.WARNING, "Select a playlist to delete.").showAndWait();
+            return;
         }
-        catch (IndexOutOfBoundsException ex) {
-            System.out.println("Table is empty.");
+
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this playlist?", ButtonType.YES, ButtonType.NO);
+        confirm.setHeaderText(null);
+
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            playlists.remove(selectedIndex);
         }
     }
 
