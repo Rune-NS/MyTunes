@@ -386,11 +386,11 @@ public class MyTunesController {
             }
 
             try {
-                //gør obs på at man skal vælge en fil for at opratte en ny sang.
+                //gør obs på at man skal vælge en fil for at oprette en ny sang.
                 if (this.valgt == null) {
                     throw new UgyldigFilException("Choose a sound fil");
                 }
-                //sørger for at man bliver gjort obs på man skal vælger mp3 eller wav.
+                //sørger for at man bliver gjort obs på man skal vælge mp3 eller wav.
                 String navn = this.valgt.getName().toLowerCase();
                 if (!navn.endsWith(".mp3")&& !navn.endsWith(".wav")) {
                     throw new UgyldigFilException("Fil must be mp3 or wav");
