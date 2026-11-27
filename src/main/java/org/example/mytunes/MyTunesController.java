@@ -355,12 +355,20 @@ public class MyTunesController {
             }
 
             try {
+                if (this.valgt == null) {
+                    throw new UgyldigFilException("Choose a sound fil");
+                }
+                String navn = this.valgt.getName().toLowerCase();
+                if (!navn.endsWith(".mp3")&& !navn.endsWith(".wav")) {
+                    throw new UgyldigFilException("Fil must be mp3 or wav");
+                }
                 //laver det som står i timefelt om til en int.
-                int time = Integer.parseInt(timefelt.getText().trim());
-                String musik = (this.valgt != null) ? this.valgt.getName() : "sample-3s.mp3";
+                int time = 0; //skal erstattes af jaudiotagger.
+                String musik = this.valgt.getName();
                 Song ny = new Song(titelfelt.getText(), artistfelt.getText(), CategoryComboBox.getValue(), time, musik);
-            } catch (NumberFormatException e) {
-                System.out.println("Fejl: " + e.getMessage()); //lav en ny klasse med en ny IllegalAccessException selv.
+                songs.add(0, ny);
+            } catch (UgyldigFilException e) {
+                visFejl(e.getMessage());
             }
         }
     }
@@ -373,5 +381,13 @@ public class MyTunesController {
     @FXML
     void songsOnPlaylistDelete(ActionEvent event) {
         //elevliste opgave?
+    }
+
+    public void visFejl(String besked) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText(null);
+        alert.setContentText(besked);
+        alert.showAndWait();
     }
 }
