@@ -113,6 +113,7 @@ public class MyTunesController {
             }
         });
 
+        //Sørger for at knappen ændrer udseende når man klikker på den, og mens noget musik spiller
         mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
@@ -134,7 +135,6 @@ public class MyTunesController {
     //Lukker programmet
     @FXML
     void closeMyTunes(ActionEvent event) {
-        //close program
         Platform.exit();
     }
 
