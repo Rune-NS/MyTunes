@@ -359,7 +359,7 @@ public class MyTunesController {
                 int time = Integer.parseInt(timefelt.getText().trim());
                 String musik = (this.valgt != null) ? this.valgt.getName() : "sample-3s.mp3";
                 Song ny = new Song(titelfelt.getText(), artistfelt.getText(), CategoryComboBox.getValue(), time, musik);
-            } catch (NumberFormatException) {
+            } catch (NumberFormatException e) {
                 System.out.println("Fejl: " + e.getMessage()); //lav en ny klasse med en ny IllegalAccessException selv.
             }
         }
