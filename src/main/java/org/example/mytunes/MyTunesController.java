@@ -1,9 +1,6 @@
 package org.example.mytunes;
 
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,8 +12,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.FileChooser;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
