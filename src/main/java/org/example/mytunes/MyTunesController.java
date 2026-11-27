@@ -70,7 +70,7 @@ public class MyTunesController {
     private TableColumn<Playlist, String> timePlaylists;
 
     @FXML
-    private TableColumn<Song, String> timeSongs;
+    private TableColumn<Song, Integer> timeSongs;
 
     @FXML
     private TableColumn<Song, String> titleSongs;
@@ -124,6 +124,9 @@ public class MyTunesController {
         namePlaylists.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         songsPlaylists.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSongs().size())));
         timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
+
+
+
     }
 
     //Ændrer sekunder til minutter og sekunder (m:ss)
@@ -355,9 +358,11 @@ public class MyTunesController {
             }
 
             try {
+                //gør obs på at man skal vælge en fil for at opratte en ny sang.
                 if (this.valgt == null) {
                     throw new UgyldigFilException("Choose a sound fil");
                 }
+                //sørger for at man bliver gjort obs på man skal vælger mp3 eller wav.
                 String navn = this.valgt.getName().toLowerCase();
                 if (!navn.endsWith(".mp3")&& !navn.endsWith(".wav")) {
                     throw new UgyldigFilException("Fil must be mp3 or wav");
