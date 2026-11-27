@@ -125,9 +125,6 @@ public class MyTunesController {
         namePlaylists.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         songsPlaylists.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSongs().size())));
         timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
-
-
-
     }
 
     //Ændrer sekunder til minutter og sekunder (m:ss)
@@ -238,7 +235,7 @@ public class MyTunesController {
 
     @FXML
     void playPause(ActionEvent event) {
-
+        //playPause ligger i initialize
     }
 
     @FXML
