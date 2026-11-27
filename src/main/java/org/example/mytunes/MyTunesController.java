@@ -13,8 +13,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.FileChooser;
-
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class MyTunesController {
@@ -79,7 +79,7 @@ public class MyTunesController {
     public MyTunesController() {
     }
 
-    //Volume slider
+    //Volume slider og media player
     @FXML
     public void initialize() {
         //sætter standard value
@@ -201,12 +201,12 @@ public class MyTunesController {
             dialogvindue.setTitle("Add or Edit Song");
             dialogvindue.setHeaderText("New Song");
             dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-            ComboBox<Song> CategoryComboBox = new ComboBox<>();
-            TextField navnefelt = new TextField();
+            ComboBox CategoryComboBox = new ComboBox<>();
+            TextField titelfelt = new TextField();
             TextField artistfelt = new TextField();
-            //CategoryComboBox.getItems().addAll(Category); //lav en arrayliste med alle Category's
+            CategoryComboBox.getItems().addAll("Pop", "Rock", "Hip Hop", "Rap", "Jazz", " Blues", "Electronic music", "Classical musik", "Country", "Reggae");
             TextField timefelt = new TextField();
-            navnefelt.setPromptText("Name");
+            titelfelt.setPromptText("Titel");
             artistfelt.setPromptText("Artist");
             CategoryComboBox.setPromptText("Category");
             timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
@@ -221,12 +221,19 @@ public class MyTunesController {
                 if (fil != null) {
                     this.valgt = fil;
                 }
-
-
-                dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
-                Optional<ButtonType> knap = dialogvindue.showAndWait();
-
             });
+
+            dialogvindue.getDialogPane().setContent(new VBox(10.0, timefelt, artistfelt, CategoryComboBox, timefelt, b));
+            Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+            /*if (knap.isPresent() && knap.get() == ButtonType.OK) {
+
+                try {
+
+                } catch () {
+
+                }
+            }*/
         }
     }
 
@@ -237,15 +244,17 @@ public class MyTunesController {
         dialogvindue.setTitle("Add or Edit Song");
         dialogvindue.setHeaderText("New Song");
         dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        ComboBox<Song> CategoryComboBox = new ComboBox<>();
-        TextField navnefelt = new TextField();
+        ComboBox<String> CategoryComboBox = new ComboBox<>();
+        TextField titelfelt = new TextField();
         TextField artistfelt = new TextField();
-        //CategoryComboBox.getItems().addAll(Category); //lav en arrayliste med alle Category's
+        CategoryComboBox.getItems().addAll("Pop", "Rock", "Hip Hop", "Rap", "Jazz", " Blues", "Electronic music", "Classical musik", "Country", "Reggae");
         TextField timefelt = new TextField();
-        navnefelt.setPromptText("Name");
+        titelfelt.setPromptText("Titel");
         artistfelt.setPromptText("Artist");
         CategoryComboBox.setPromptText("Category");
-        timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
+        timefelt.setPromptText("Time"); //Brug et biblotek som kan hente meta data fra mp3 eller wav filen og så sætte det ind i kolonde for brugeren. Og lav feltet ikke redigerbart.
+        //setter feltet til at det ikke kan redigeres af brugeren
+        timefelt.setEditable(false);
         FileChooser filechooser = new FileChooser();
         Button b = new Button("Fil");
         b.setOnAction((event1) -> {
@@ -253,17 +262,35 @@ public class MyTunesController {
             if (mappe.isDirectory()) {
                 filechooser.setInitialDirectory(mappe);
             }
+            //sætter stifinderen til at vise mp3 og wav filer
+            FileChooser.ExtensionFilter lydFilter = new FileChooser.ExtensionFilter("Lydfilter", "*.mp3", "*.wav");
+            filechooser.getExtensionFilters().add(lydFilter);
+
             File fil = filechooser.showOpenDialog(b.getScene().getWindow());
             if (fil != null) {
                 this.valgt = fil;
             }
         });
 
-        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt, artistfelt, CategoryComboBox, timefelt, b));
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, titelfelt, artistfelt, CategoryComboBox, b, timefelt));
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //Mangler den del som ligger den nye sang i arraylisten med alle de andre.
-        //Programmet skal kun tage i mod mp3 og wav. Og time må man kun skrive en valid tid fx 1:30.
+        if (knap.isPresent() && knap.get() == ButtonType.OK) {
+
+            if (CategoryComboBox.getValue() == null) {
+                System.out.println("Choose a category");
+                return;
+            }
+
+            try {
+                //laver det som står i timefelt om til en int.
+                int time = Integer.parseInt(timefelt.getText().trim());
+                String musik = (this.valgt != null) ? this.valgt.getName() : "sample-3s.mp3";
+                Song ny = new Song(titelfelt.getText(), artistfelt.getText(), CategoryComboBox.getValue(), time, musik);
+            } catch (NumberFormatException) {
+                System.out.println("Fejl: " + e.getMessage()); //lav en ny klasse med en ny IllegalAccessException selv.
+            }
+        }
     }
 
     @FXML
