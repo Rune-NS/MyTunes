@@ -3,6 +3,7 @@ package org.example.mytunes;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.FileChooser;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -52,7 +55,7 @@ public class MyTunesController {
     private TableView<Playlist> songsOnPlaylistTable;
 
     @FXML
-    private TableColumn<Playlist, Song> songsPlaylists;
+    private TableColumn<Playlist, String> songsPlaylists;
 
     @FXML
     private Label currentlyPlayingName;
@@ -91,7 +94,7 @@ public class MyTunesController {
             }
         });
 
-        //laver en mediaplayer og styrer play/pause
+        //Laver en mediaplayer og styrer play/pause
         Media media = new Media(getClass().getResource("sample-3s.mp3").toString());
         mp = new MediaPlayer(media);
 
@@ -113,10 +116,22 @@ public class MyTunesController {
         mp.setOnPlaying(() -> playPauseButten.setText("⏸"));
         mp.setOnPaused(() -> playPauseButten.setText("▶"));
         mp.setOnStopped(() -> playPauseButten.setText("▶"));
-
         mp.setOnEndOfMedia(() -> mp.stop());
+
+        //Binder playlists til playlistsTable
+        playlistsTable.setItems(playlists);
+
+        namePlaylists.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
+        songsPlaylists.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSongs().size())));
+        timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
     }
 
+    //Ændrer sekunder til minutter og sekunder (m:ss)
+    private String formatTime(int seconds) {
+        return String.format("%d:%02d", seconds / 60, seconds % 60);
+    }
+
+    //Lukker programmet
     @FXML
     void closeMyTunes(ActionEvent event) {
         //close program
@@ -125,19 +140,65 @@ public class MyTunesController {
 
     @FXML
     void deletePlaylist(ActionEvent event) {
-        //elevliste opgave
+        try {
+            playlists.remove(playlistsTable.getSelectionModel().getSelectedIndex());
+        }
+        catch (IndexOutOfBoundsException ex) {
+            System.out.println("Table is empty.");
+        }
     }
 
+    //Gør at man kan ændre på en playlistes navn
     @FXML
     void editPlaylist(ActionEvent event) {
+        Playlist selected = playlistsTable.getSelectionModel().getSelectedItem();
 
+        if (selected == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select a playlist to edit.").showAndWait();
+            return;
+        }
+
+        Dialog<ButtonType> dialogvindue = new Dialog<>();
+        dialogvindue.setTitle("Edit Playlist");
+        dialogvindue.setHeaderText("Edit Playlist Name");
+        dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        TextField navnefelt = new TextField(selected.getName());
+        navnefelt.setPromptText("Name");
+
+        dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
+
+        boolean done = false;
+
+        while (!done) {
+            Platform.runLater(() -> {
+                navnefelt.requestFocus();
+                navnefelt.selectAll();
+            });
+
+            Optional<ButtonType> knap = dialogvindue.showAndWait();
+
+            if (knap.isPresent() && knap.get() == ButtonType.OK) {
+                String name = navnefelt.getText().trim();
+
+                if (name.isEmpty()) {
+                    new Alert(Alert.AlertType.WARNING, "The playlist must have a name.").showAndWait();
+                } else {
+                    selected.setName(name);
+                    playlistsTable.refresh();
+                    done = true;
+                }
+            } else {
+                done = true;
+            }
+        }
     }
 
     @FXML
     void newPlaylist(ActionEvent event) {
         this.valgt = null;
         Dialog<ButtonType> dialogvindue = new Dialog<>();
-        dialogvindue.setTitle("Add or Edit Playlist");
+        dialogvindue.setTitle("Add Playlist");
         dialogvindue.setHeaderText("New Playlist");
         dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
         TextField navnefelt = new TextField();
@@ -145,10 +206,21 @@ public class MyTunesController {
 
 
         dialogvindue.getDialogPane().setContent(new VBox(10.0, navnefelt));
+        Platform.runLater(navnefelt::requestFocus);
         Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-        //mangler den del som lægger det man skriver i listen med alle playlister.
-        //Den skal være uden try fordi man skal kunne give lige det navn man vil have.
+        if (knap.isPresent() && knap.get() == ButtonType.OK) {
+            String name = navnefelt.getText().trim();
+
+            if (name.isEmpty()) {
+                new Alert(Alert.AlertType.WARNING, "The playlist must have a name.").showAndWait();
+                return;
+            }
+
+            Playlist p = new Playlist(name, 0, new ArrayList<>());
+
+            playlists.add(p);
+        }
     }
 
     @FXML
