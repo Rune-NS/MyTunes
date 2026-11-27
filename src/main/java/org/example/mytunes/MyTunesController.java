@@ -3,6 +3,7 @@ package org.example.mytunes;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -126,7 +127,13 @@ public class MyTunesController {
         songsPlaylists.setCellValueFactory(data -> new SimpleStringProperty(String.valueOf(data.getValue().getSongs().size())));
         timePlaylists.setCellValueFactory(data -> new SimpleStringProperty(formatTime(data.getValue().getTotalDuration())));
 
+        //Binder songs til songsTable
+        songsTable.setItems(songs);
 
+        titleSongs.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTitle()));
+        artistSongs.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getArtist()));
+        categorySongs.setCellValueFactory(data ->  new SimpleStringProperty(data.getValue().getCategory()));
+        //timePlaylists.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().
 
     }
 
@@ -286,15 +293,17 @@ public class MyTunesController {
             dialogvindue.setTitle("Add or Edit Song");
             dialogvindue.setHeaderText("New Song");
             dialogvindue.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-            ComboBox CategoryComboBox = new ComboBox<>();
+            ComboBox<String> CategoryComboBox = new ComboBox<>();
             TextField titelfelt = new TextField();
             TextField artistfelt = new TextField();
             CategoryComboBox.getItems().addAll("Pop", "Rock", "Hip Hop", "Rap", "Jazz", " Blues", "Electronic music", "Classical musik", "Country", "Reggae");
             TextField timefelt = new TextField();
-            titelfelt.setPromptText("Titel");
-            artistfelt.setPromptText("Artist");
-            CategoryComboBox.setPromptText("Category");
-            timefelt.setPromptText("Time"); //Hvad skal man angive?? Sekunder (int) eller en String så fx 1:30? Hvis ja, hvordan laver man det så som til noget man kan give programmet? Uanset hvad skal der en try catch på
+            titelfelt.setText(s1.getTitle());
+            artistfelt.setText(s1.getArtist());
+            CategoryComboBox.setValue(s1.getCategory());
+            timefelt.setPromptText("Time"); //Brug et biblotek som kan hente meta data fra mp3 eller wav filen og så sætte det ind i kolonde for brugeren. Og lav feltet ikke redigerbart.
+            //setter feltet til at det ikke kan redigeres af brugeren
+            timefelt.setEditable(false);
             FileChooser filechooser = new FileChooser();
             Button b = new Button("Fil");
             b.setOnAction((event1) -> {
@@ -302,23 +311,32 @@ public class MyTunesController {
                 if (mappe.isDirectory()) {
                     filechooser.setInitialDirectory(mappe);
                 }
+                //sætter stifinderen til at vise mp3 og wav filer
+                FileChooser.ExtensionFilter lydFilter = new FileChooser.ExtensionFilter("Lydfilter", "*.mp3", "*.wav");
+                filechooser.getExtensionFilters().add(lydFilter);
+
                 File fil = filechooser.showOpenDialog(b.getScene().getWindow());
                 if (fil != null) {
                     this.valgt = fil;
                 }
             });
 
-            dialogvindue.getDialogPane().setContent(new VBox(10.0, timefelt, artistfelt, CategoryComboBox, timefelt, b));
+            dialogvindue.getDialogPane().setContent(new VBox(10.0, titelfelt, artistfelt, CategoryComboBox, b, timefelt));
             Optional<ButtonType> knap = dialogvindue.showAndWait();
 
-            /*if (knap.isPresent() && knap.get() == ButtonType.OK) {
+            if (knap.isPresent() && knap.get() == ButtonType.OK) {
 
-                try {
+                s1.setTitle(titelfelt.getText());
+                s1.setArtist(artistfelt.getText());
+                s1.setCategory(CategoryComboBox.getValue());
+                //s1.getMusik();
 
-                } catch () {
+                songs.remove(s1);
+                songsTable.getSortOrder().clear();
+                songs.add(0, s1);
+                songsTable.getSelectionModel().select(s1);
 
-                }
-            }*/
+            }
         }
     }
 
@@ -378,7 +396,7 @@ public class MyTunesController {
                     throw new UgyldigFilException("Fil must be mp3 or wav");
                 }
                 //laver det som står i timefelt om til en int.
-                int time = 0; //skal erstattes af jaudiotagger.
+                int time = 10; //skal erstattes af jaudiotagger.
                 String musik = this.valgt.getName();
                 Song ny = new Song(titelfelt.getText(), artistfelt.getText(), CategoryComboBox.getValue(), time, musik);
                 songs.add(0, ny);
