@@ -245,7 +245,7 @@ public class MyTunesController {
 
     @FXML
     void playPause(ActionEvent event) {
-
+        //playPause ligger i initialize
     }
 
     @FXML
